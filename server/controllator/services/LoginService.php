@@ -1,26 +1,50 @@
 <?php 
-include ("../model/usersDB/UserDB.php");
-include ("../model/users/Worker.php");
-include ("../model/DB/UserInDB.php");
-require ("../model/DB/ConnectionDB.php");
+include ("../../model/usersDB/UserDB.php");
+include ("../../model/users/Worker.php");
+include ("../../model/DB/UserInDB.php");
+include ("../../model/DB/GuestConnDB.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-//datos del formulario
-$username = $_POST['username'];
-$password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener los datos del formulario
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-$connectionDB = new ConnectionDB();
-$conn = null;
-if($conn === null){
-    $conn = $connectionDB->getConnection(ConnectionDB::CREDENTIALS['GUEST']);
-}
-if($conn != null){
-    $userDB = new UserDB($conn);
-    $worker = new Worker('admin', 'admin');
-    echo "Se ha llegado al fin ";
-    //echo $userDB->recoverRol($worker);
+    $guestConn = GuestConnDB::getInstance();
+    $conn = $guestConn->getConnection();
+
+    if ($conn != null) {
+        $userDB = new UserDB($conn);
+        $worker = new Worker($username, $password);
+        $rol =  $userDB->recoverRol($worker);
+        echo $rol;
+        switch ($rol) {
+            case  Worker::ADMIN_ROL:
+                header('Location: ../../view/admin/dashboard.php');
+                break;
+            case  Worker::INVENTARY_ROL:
+                header('Location: ../../view/inventary/dashboard.php');
+                break;
+            case  Worker::SALESPERSON_ROL:
+                header('Location: ../../view/salesperson/dashboard.php');
+                break;
+            case  Worker::STOCK_ROL:
+                header('Location: ../../view/stock/dashboard.php');
+                break;
+            default:
+                header('Location: ../../view/login.php');
+                break;
+        }
+        exit();
+    } else {
+        header('Location: ../../view/login.php');
+        exit();
+    }
+
+
 } else {
-    echo "<h1>No se pudo obtener la conexion</h1>";
+    echo "Error";
 }
+?>
