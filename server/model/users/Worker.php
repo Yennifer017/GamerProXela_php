@@ -27,6 +27,18 @@ class Worker {
     public function getPassword(){
         return $this->password;
     }
+
+    public function setRol(string $rol){
+        $this->rol = $rol;
+    }
+
+    public function setId(int $id){
+        $this->id = $id;
+    }
+
+    public function setPassword(string $password){
+        $this->password = $password;
+    }
     
     public function __construct(string $username = null, string $password = null, int $id = -1, string $rol = null) {
         $this->id = $id;

@@ -234,7 +234,6 @@ ERROR && SUCCESS
     border-radius: 8px; /* Bordes redondeados */
     padding: 15px; /* Espaciado interno */
     font-family: 'Press Start 2P', sans-serif; /* Tipografía estilo pixelado (puedes usar Google Fonts para esto) */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para darle profundidad */
     margin: 10px 0; /* Espaciado vertical */
     text-align: center; /* Centrar el texto */
 }

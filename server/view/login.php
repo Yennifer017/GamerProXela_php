@@ -23,6 +23,22 @@
 
             <button type="submit">Ingresar</button>
         </form>
+        <?php 
+        if (isset($_GET['e'])) {
+            $status = $_GET['e'];
+            switch ($status) {
+                case 400:
+                    echo '<div class="error-message"><p>Request invalido, intentalo otra vez</p></div>';
+                    break;
+                case 401:
+                    echo '<div class="error-message"><p>Usuario o contrasena incorrectas</p></div>';
+                    break;
+                case 503:
+                    echo '<div class="error-message"><p>Conexion a la base de datos invalida :c</p></div>';
+                    break;
+            }
+        }
+        ?>
     </div>
 </body>
 </html>

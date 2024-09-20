@@ -1,36 +1,42 @@
 <?php
 include ("../../model/DB/Encryptator.php");
 class UserDB {
-    private $conn = null;
     private $encryptator;
 
-    public function __construct($conn = null) {
-        $this->conn = $conn;
+    public function __construct() {
         $this->encryptator = new Encryptator();
     }
 
-    public function recoverRol(Worker $worker) {
+    public function recoverBasic(Worker $worker, $guestConn) {
         try {
-            $sql = 'SELECT rol FROM administrative.worker WHERE username = :username AND password = :pass LIMIT 1';
+            $sql = 'SELECT id, rol FROM administrative.worker WHERE username = :username AND password = :pass LIMIT 1';
             $username = $worker->getUsername();
             $encryptedPassword = $this->encryptator->encrypt($worker);
 
-            $stmt = $this->conn->prepare($sql);
+            $stmt = $guestConn->prepare($sql);
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':pass', $encryptedPassword);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result) {
-                return $result['rol'];
+                $worker->setRol($result['rol']);
+                $worker->setId($result['id']);
+                $worker->setPassword('');
+                return $worker;
             } else {
-                return '';
+                return null;
             }
         } catch (PDOException $e) {
-            return '';
+            return null;
         }
     }
 
-    public function setConn($conn){
-        $this->conn = $conn;
+    public function recoverExtendData(){
+        
     }
+
+    public function recoverSucursalData(){
+        
+    }
+
 }
