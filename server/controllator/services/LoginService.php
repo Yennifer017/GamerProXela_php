@@ -6,12 +6,7 @@ include ("../../model/users/Salesperson.php");
 include ("../../model/DB/UserInDB.php");
 include ("../../model/DB/CredentialsDB.php");
 include ("../../model/DB/GuestConnDB.php");
-include ("../../model/DB/InventaryConnDB.php");
-include ("../../model/DB/SalespersonConnDB.php");
 include ("../../controllator/General/Session.php"); 
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos del formulario
@@ -60,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             header('Location: ../../view/login.php?e=401');
         }
-        //exit();
+        exit();
     } else {
         header('Location: ../../view/login.php?e=503');
         exit();

@@ -23,6 +23,9 @@ include ('../../model/users/Salesperson.php')
     }
     ?>
     <?php include './header.php'; ?>
-    <h1 class="gamer-title">Welcome SALESPERSON</h1>
+    <h1 class="gamer-title small-title">
+        Numero de caja: <?php echo $worker->getNoCheckout()?>
+    </h1>
+    <?php include('./sales.php');?>
 </body>
 </html>

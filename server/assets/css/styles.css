@@ -271,12 +271,14 @@ ERROR && SUCCESS
     display: block;
     margin-bottom: 10px;
     font-size: 14px;
+    text-align: left;
     color: #FFFFFF; /* Color de las etiquetas blanco */
 }
 
 .gamer-form input[type="text"],
 .gamer-form input[type="email"],
-.gamer-form input[type="password"] {
+.gamer-form input[type="password"],
+.gamer-form input[type="number"] {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
@@ -290,7 +292,8 @@ ERROR && SUCCESS
 
 .gamer-form input[type="text"]:focus,
 .gamer-form input[type="email"]:focus,
-.gamer-form input[type="password"]:focus {
+.gamer-form input[type="password"]:focus, 
+.gamer-form input[type="number"]:focus {
     outline: none;
     box-shadow: 0px 0px 15px #FF0000, inset 0px 0px 10px #00FF00; /* Efecto de foco rojo y verde */
 }
