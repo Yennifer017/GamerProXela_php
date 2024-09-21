@@ -21,22 +21,60 @@ class UserDB {
             if ($result) {
                 $worker->setRol($result['rol']);
                 $worker->setId($result['id']);
-                $worker->setPassword('');
+                $worker->setPassword('Nothing here');
                 return $worker;
             } else {
-                return null;
+                $worker->setPassword($encryptedPassword);
+                return $worker;
+                //return null;
             }
         } catch (PDOException $e) {
             return null;
         }
     }
 
-    public function recoverExtendData(){
-        
+    public function recoverExtendData(Salesperson $salesPerson, $conn){
+        try {
+            $sql = 'SELECT id_sucursal, no_checkout FROM administrative.cajero WHERE id_worker = :id LIMIT 1;';
+            $id = $salesPerson->getId();
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $salesPerson->setIdSucursal($result['id_sucursal']);
+                $salesPerson->setNoCheckout($result['no_checkout']);
+                return $salesPerson;
+                //return "si encontro lo que deberia";
+            } else {
+                return null;
+                //return "NO encontro lo que deberia";
+            }
+        } catch (PDOException $e) {
+            return null;
+            //return $e->getMessage();
+        }
     }
 
-    public function recoverSucursalData(){
-        
+    public function recoverSucursalData(Assigned $assigned, $conn){
+        try {
+            $sql = 'SELECT id_sucursal FROM administrative.assigned WHERE id_worker = :id LIMIT 1;';
+            $id = $assigned->getId();
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $assigned->setIdSucursal($result['id_sucursal']);
+                return $assigned;
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            return null;
+        }
     }
 
 }

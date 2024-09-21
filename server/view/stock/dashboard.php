@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include ('../../controllator/General/Session.php');
 include ('../../model/users/Worker.php');
-include ('../../model/users/Salesperson.php')
+include ('../../model/users/Assigned.php')
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,12 +17,12 @@ include ('../../model/users/Salesperson.php')
     <?php
     $session = new Session();
     $worker = $session->get_session_data();
-    if($worker == null || $worker->getRol() != Worker::SALESPERSON_ROL){
+    if($worker == null || $worker->getRol() != Worker::STOCK_ROL){
         header('Location: ../login.php?e=401');
         exit();
     }
     ?>
     <?php include './header.php'; ?>
-    <h1 class="gamer-title">Welcome SALESPERSON</h1>
+    <h1 class="gamer-title">Welcome STOCK PERSON</h1>
 </body>
 </html>

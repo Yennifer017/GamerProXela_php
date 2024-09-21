@@ -1,9 +1,17 @@
 <?php 
 include ("../../model/usersDB/UserDB.php");
 include ("../../model/users/Worker.php");
+include ("../../model/users/Assigned.php");
+include ("../../model/users/Salesperson.php");
 include ("../../model/DB/UserInDB.php");
+include ("../../model/DB/CredentialsDB.php");
 include ("../../model/DB/GuestConnDB.php");
-include ("../../controllator/General/Session.php");
+include ("../../model/DB/InventaryConnDB.php");
+include ("../../model/DB/SalespersonConnDB.php");
+include ("../../controllator/General/Session.php"); 
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos del formulario
@@ -26,12 +34,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header('Location: ../../view/admin/dashboard.php');
                     break;
                 case  Worker::INVENTARY_ROL:
+                    $assigned = new Assigned($worker->getUsername(), null, 
+                        $worker->getId(), $worker->getRol());
+                    $assigned = $userDB->recoverSucursalData($assigned, $guestConn);
+                    $session->setSessionCookie($assigned);
                     header('Location: ../../view/inventary/dashboard.php');
                     break;
                 case  Worker::SALESPERSON_ROL:
-                    header('Location: ../../view/salesperson/dashboard.php');
+                    $salesperson = new Salesperson($worker->getUsername(), null, $worker->getId());
+                    $salesperson = $userDB->recoverExtendData($salesperson, $guestConn);
+                    $session->setAllSessionCookie($salesperson);
+                    header('Location: ../../view/salespersons/dashboard.php');
                     break;
                 case  Worker::STOCK_ROL:
+                    $assigned = new Assigned($worker->getUsername(), null, 
+                        $worker->getId(), $worker->getRol());
+                    $assigned = $userDB->recoverSucursalData($assigned, $guestConn);
+                    $session->setSessionCookie($assigned);
                     header('Location: ../../view/stock/dashboard.php');
                     break;
                 default:
@@ -41,12 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             header('Location: ../../view/login.php?e=401');
         }
-        exit();
+        //exit();
     } else {
         header('Location: ../../view/login.php?e=503');
         exit();
     }
-
 
 } else {
     echo "Error";

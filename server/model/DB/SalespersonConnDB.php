@@ -1,9 +1,7 @@
 <?php
-    require ("CredentialsDB.php");
     class SalespersonConnDB {
         private static $instance = null;
-        private $conn;
-    
+        private $conn = null;
         private $host = CredentialsDB::DB_HOST;
         private $dbname = CredentialsDB::DB_NAME;
         private $username = CredentialsDB::CREDENTIALS['SALESPERSON']['username'];
@@ -21,7 +19,7 @@
     
         public static function getInstance() {
             if (!self::$instance) {
-                self::$instance = new GuestConnDB();
+                self::$instance = new SalespersonConnDB();
             }
             return self::$instance;
         }

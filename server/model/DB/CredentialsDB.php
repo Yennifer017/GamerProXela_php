@@ -8,7 +8,7 @@ class CredentialsDB {
         'INVENTARY' => ['username' => 'inventariogx', 'password' => 'invent123']
     ];
 
-    const DB_NAME = 'gamer_pro_xela';
-    const DB_HOST = 'localhost';
-    const PORT = '5432';
+    public const DB_NAME = 'gamer_pro_xela';
+    public const DB_HOST = 'localhost';
+    public const PORT = '5432';
 }

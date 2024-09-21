@@ -1,5 +1,4 @@
 <?php
-    require ("CredentialsDB.php");
     class GuestConnDB {
         private static $instance = null;
         private $conn;

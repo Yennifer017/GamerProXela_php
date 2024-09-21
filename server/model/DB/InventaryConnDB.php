@@ -1,5 +1,4 @@
 <?php
-    require ("CredentialsDB.php");
     class InventaryConnDB {
         private static $instance = null;
         private $conn;
@@ -21,7 +20,7 @@
     
         public static function getInstance() {
             if (!self::$instance) {
-                self::$instance = new GuestConnDB();
+                self::$instance = new InventaryConnDB();
             }
             return self::$instance;
         }

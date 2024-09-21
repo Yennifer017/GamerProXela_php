@@ -6,6 +6,10 @@ class Assigned extends Worker{
     public function getIdSucursal(){
         return $this->idSucursal;
     }
+
+    public function setIdSucursal(int $idSucursal){
+        $this->idSucursal = $idSucursal;
+    }
     
     public function __construct(string $username = null, string $password = null, 
             int $id = -1, string $rol = null, int $idSucursal = -1) {
