@@ -1,0 +1,6 @@
+--DB users
+CREATE ROLE admingx LOGIN PASSWORD 'admin123';
+CREATE ROLE cajerogx LOGIN PASSWORD 'cajero123';
+CREATE ROLE bodegagx LOGIN PASSWORD 'bodega123';
+CREATE ROLE inventariogx LOGIN PASSWORD 'invent123';
+CREATE ROLE guestgx LOGIN PASSWORD 'guest123';

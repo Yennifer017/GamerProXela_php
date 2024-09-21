@@ -36,6 +36,15 @@ include ('../../model/users/Salesperson.php')
             case '503c':
                 echo '<div class="error-message"><p>Nit duplicado o error con la conexion</p></div>';
                 break;
+            case '200m':
+                echo '<div class="success-message"><p>Solicitud de cambio de cliente enviada</p></div>';
+                break;
+            case '400m':
+                echo '<div class="error-message"><p>Informacion nueva invalida o informacion faltante</p></div>';
+                break;
+            case '503m':
+                echo '<div class="error-message"><p>Nit no encontrado o error con la conexion</p></div>';
+                break;
         }
     }
     ?>
@@ -72,7 +81,7 @@ include ('../../model/users/Salesperson.php')
             <label class="accordion-title" for="item2">Modificar Cliente</label>
             <div class="accordion-content">
                 <div class="gamer-form div-centrado">
-                    <form action="../../controllator/services/salespersonSer/AddClientService.php" method="post">
+                    <form action="../../controllator/services/salespersonSer/ModifyClientSol.php" method="post">
                         <label for="nit">Nit: </label>
                         <input type="number" name="nit" id="nit" required>
 

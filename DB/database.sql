@@ -5,25 +5,6 @@
  * 
  * Also it's necessary to run the file initial-data.sql
  */
---Creation
---DROP DATABASE gamer_pro_xela; /*For test proposes only*/
-CREATE DATABASE gamer_pro_xela WITH OWNER admin;
-
---Connect
-\c gamer_pro_xela
-
---schemas
-CREATE SCHEMA administrative;
-CREATE SCHEMA business;
-CREATE SCHEMA storage;
-CREATE SCHEMA users;
-
---DB users
-CREATE ROLE admingx LOGIN PASSWORD 'admin123';
-CREATE ROLE cajerogx LOGIN PASSWORD 'cajero123';
-CREATE ROLE bodegagx LOGIN PASSWORD 'bodega123';
-CREATE ROLE inventariogx LOGIN PASSWORD 'invent123';
-CREATE ROLE guestgx LOGIN PASSWORD 'guest123';
 
 --table creation
 CREATE TABLE administrative.params(
@@ -75,12 +56,12 @@ CREATE TABLE administrative.discount(
 	FOREIGN KEY (id_product) REFERENCES business.product(id)
 );
 CREATE TABLE users.client(
-	id SERIAL PRIMARY KEY,
-	nit BIGINT UNIQUE NOT NULL,
+	id BIGINT PRIMARY KEY,
 	firstname VARCHAR(25),
 	lastname VARCHAR(25),
 	email VARCHAR(60)
 );
+CREATE TYPE users.mod_status AS ENUM('aprobado', 'denegado', 'pendiente');
 CREATE TABLE users.modification(
 	id SERIAL PRIMARY KEY,
 	id_cajero INTEGER NOT NULL,
@@ -88,6 +69,7 @@ CREATE TABLE users.modification(
 	firstname VARCHAR(25),
 	lastname VARCHAR(25),
 	email VARCHAR(60),
+	status users.mod_status NOT NULL,
 	FOREIGN KEY (id_cajero) REFERENCES administrative.cajero(id_worker),
 	FOREIGN KEY (id_cliente) REFERENCES users.client(id)
 );

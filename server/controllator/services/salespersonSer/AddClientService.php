@@ -1,14 +1,20 @@
 <?php
 include("../../../model/clients/Client.php");
+include("../../../model/users/Worker.php");
+include("../../../model/users/Salesperson.php");
 include("../../../model/DB/SalespersonConnDB.php");
 include("../../../model/DB/CredentialsDB.php");
 include("../../../model/usersDB/ClientDB.php");
 include("../../valitators/ClientValitator.php");
+include("../../General/Session.php");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$session = new Session();
+$worker = $session->get_session_data();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol() == Worker::SALESPERSON_ROL) {
     // Obtener los datos del formulario
     $nit = $_POST['nit'] ?? '';
     $name = $_POST['name'] ?? '';
