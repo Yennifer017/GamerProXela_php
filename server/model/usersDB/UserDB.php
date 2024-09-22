@@ -80,7 +80,7 @@ class UserDB {
      * ********************************************/
     public function insertSalesPerson(Salesperson $salesperson, $conn){
         if($this->workerValitator->isSalespersonValid($salesperson)){
-            $sql = "SELECT create_salesperson(:username, :pass, :id_sucursal, :no_checkout);";
+            $sql = "SELECT administrative.create_salesperson(:username, :pass, :id_sucursal, :no_checkout);";
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':username', $salesperson->getUsername());
             $stmt->bindValue(':pass', $this->encryptator->encrypt($salesperson));
@@ -96,7 +96,7 @@ class UserDB {
 
     public function insertAssignedWorker(Assigned $assigned, $conn){
         if($this->workerValitator->isAssignedValid($assigned)){
-            $sql = "SELECT create_assigned(:username, :pass, :rol, :id_sucursal);";
+            $sql = "SELECT administrative.create_assigned(:username, :pass, :rol, :id_sucursal);";
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':username', $assigned->getUsername());
             $stmt->bindValue(':pass', $this->encryptator->encrypt($assigned));

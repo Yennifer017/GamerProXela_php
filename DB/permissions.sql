@@ -25,10 +25,13 @@ GRANT USAGE, CREATE ON SCHEMA business TO cajeroGX;
 GRANT INSERT, UPDATE ON storage.on_sale TO cajeroGX;
 
 --bodega permissons
-GRANT SELECT ON administrative.worker TO bodegaGX;
-GRANT SELECT ON administrative.assigned TO bodegaGX;
+GRANT USAGE ON SCHEMA storage TO bodegagx;
+GRANT USAGE ON SCHEMA administrative TO bodegagx;
+GRANT SELECT ON administrative.worker TO bodegagX;
+GRANT SELECT ON administrative.assigned TO bodegagX;
+GRANT SELECT ON administrative.sucursal TO bodegagX;
 GRANT SELECT, INSERT, UPDATE ON business.product TO bodegaGX;
-GRANT INSERT, SELECT, CREATE ON storage.stock TO bodegaGX;
+GRANT INSERT, SELECT, UPDATE ON storage.stock TO bodegaGX;
 
 --inventary permissons
 GRANT SELECT ON administrative.worker TO inventarioGX;

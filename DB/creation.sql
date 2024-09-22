@@ -1,5 +1,5 @@
 --Creation
---DROP DATABASE gamer_pro_xela; /*For test proposes only*/
+DROP DATABASE gamer_pro_xela; /*For test proposes only*/
 CREATE DATABASE gamer_pro_xela WITH OWNER admin;
 
 --Connect

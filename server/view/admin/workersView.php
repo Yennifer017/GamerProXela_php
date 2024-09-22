@@ -33,7 +33,7 @@ include ('../../model/users/Worker.php');
                 break;
             case 503:
                 echo '<div class="error-message"><p>
-                        Username repetido, sucursal invalida o error de conexion con la base de datos
+                        Username repetido, sucursal/checkout invalida o error de conexion con la base de datos
                     </p></div>';
                 break;
             case 500:

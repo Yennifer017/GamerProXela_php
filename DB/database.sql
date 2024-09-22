@@ -20,7 +20,9 @@ CREATE TABLE administrative.card_category (
 );
 CREATE TABLE administrative.sucursal(
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(30) UNIQUE NOT NULL
+	name VARCHAR(30) UNIQUE NOT NULL,
+	total_checkouts INTEGER NOT NULL CHECK(total_checkouts >= 0),
+	total_halls INTEGER NOT NULL CHECK(total_halls >= 0)
 );
 CREATE TYPE administrative.user_rol AS ENUM('admin', 'cajero', 'bodega', 'inventario');
 CREATE TABLE administrative.worker(

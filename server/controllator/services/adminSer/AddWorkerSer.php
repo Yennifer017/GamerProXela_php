@@ -9,6 +9,7 @@ include("../../../model/usersDB/UserDB.php");
 include("../../valitators/WorkerValitator.php");
 include("../../General/Session.php");
 include ("../../../model/DB/Encryptator.php");
+include("../../exceptions/InvalidDataEx.php");
 
 $returnPath = '../../../view/admin/workersView.php';
 

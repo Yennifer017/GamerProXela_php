@@ -22,7 +22,8 @@ include ('../../model/users/Assigned.php')
         exit();
     }
     ?>
-    <?php include './header.php'; ?>
-    <h1 class="gamer-title">Welcome STOCK PERSON</h1>
+    <?php include './header.php';
+    include ('./addProduct.php');
+    ?>
 </body>
 </html>
