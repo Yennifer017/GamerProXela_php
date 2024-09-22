@@ -1,10 +1,11 @@
 <?php
-include ("../../model/DB/Encryptator.php");
 class UserDB {
     private $encryptator;
+    private WorkerValitator $workerValitator;
 
     public function __construct() {
         $this->encryptator = new Encryptator();
+        $this->workerValitator = new WorkerValitator();
     }
 
     public function recoverBasic(Worker $worker, $guestConn) {
@@ -46,14 +47,11 @@ class UserDB {
                 $salesPerson->setIdSucursal($result['id_sucursal']);
                 $salesPerson->setNoCheckout($result['no_checkout']);
                 return $salesPerson;
-                //return "si encontro lo que deberia";
             } else {
                 return null;
-                //return "NO encontro lo que deberia";
             }
         } catch (PDOException $e) {
             return null;
-            //return $e->getMessage();
         }
     }
 
@@ -74,6 +72,41 @@ class UserDB {
             }
         } catch (PDOException $e) {
             return null;
+        }
+    }
+
+    /**********************************************
+     * ************** CREATES *********************
+     * ********************************************/
+    public function insertSalesPerson(Salesperson $salesperson, $conn){
+        if($this->workerValitator->isSalespersonValid($salesperson)){
+            $sql = "SELECT create_salesperson(:username, :pass, :id_sucursal, :no_checkout);";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':username', $salesperson->getUsername());
+            $stmt->bindValue(':pass', $this->encryptator->encrypt($salesperson));
+            $stmt->bindValue(':id_sucursal', $salesperson->getIdSucursal());
+            $stmt->bindValue(':no_checkout', $salesperson->getNoCheckout());
+            if (!$stmt->execute()) {
+                throw new InvalidDataEx("Datos invalidos");
+            } 
+        } else {
+            throw new InvalidDataEx("Datos invalidos");
+        }
+    }
+
+    public function insertAssignedWorker(Assigned $assigned, $conn){
+        if($this->workerValitator->isAssignedValid($assigned)){
+            $sql = "SELECT create_assigned(:username, :pass, :rol, :id_sucursal);";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':username', $assigned->getUsername());
+            $stmt->bindValue(':pass', $this->encryptator->encrypt($assigned));
+            $stmt->bindValue(':rol', $assigned->getRol());
+            $stmt->bindValue(':id_sucursal', $assigned->getIdSucursal());
+            if (!$stmt->execute()) {
+                throw new InvalidDataEx("Datos invalidos");
+            } 
+        } else {
+            throw new InvalidDataEx("Datos invalidos");
         }
     }
 

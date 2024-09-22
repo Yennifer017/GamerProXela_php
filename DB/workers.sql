@@ -100,3 +100,6 @@ INSERT INTO administrative.assigned(id_worker, id_sucursal) VALUES
 (33, 3);
 
 
+--alterar secuencia por los trabajadores insertados
+ALTER SEQUENCE administrative.worker_id_seq RESTART WITH 35;
+

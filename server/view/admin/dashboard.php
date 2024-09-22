@@ -21,7 +21,9 @@ include ('../../model/users/Worker.php');
         exit();
     }
     ?>
-    <?php include './header.php'; ?>
-    <h1 class="gamer-title">Welcome ADMIN</h1>
+    <?php 
+    include './header.php'; 
+    include 'reports.php';
+    ?>
 </body>
 </html>

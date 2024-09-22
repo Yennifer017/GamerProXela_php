@@ -1,6 +1,6 @@
 <?php
 class Encryptator {
-    public function encrypt(Worker $worker) {
+    public function encrypt($worker) {
         $finalPassword = substr($worker->getUsername(), 0, 1) 
             . $worker->getPassword() 
             . substr($worker->getUsername(), -1);

@@ -1,0 +1,1 @@
+<h1 class="gamer-title">Ver Reportes</h1>

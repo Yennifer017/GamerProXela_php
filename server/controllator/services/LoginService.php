@@ -7,6 +7,8 @@ include ("../../model/DB/UserInDB.php");
 include ("../../model/DB/CredentialsDB.php");
 include ("../../model/DB/GuestConnDB.php");
 include ("../../controllator/General/Session.php"); 
+include ("../../model/DB/Encryptator.php");
+include ("../valitators/WorkerValitator.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos del formulario
