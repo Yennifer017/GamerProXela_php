@@ -22,7 +22,9 @@ include ('../../model/users/Assigned.php')
         exit();
     }
     ?>
-    <?php include './header.php'; ?>
-    <h1 class="gamer-title">Welcome INVENTARY PERSON</h1>
+    <?php 
+    include './header.php'; 
+    include ('./transfer.php');
+    ?>
 </body>
 </html>

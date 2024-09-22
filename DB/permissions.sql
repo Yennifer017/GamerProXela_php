@@ -38,6 +38,7 @@ GRANT SELECT ON administrative.worker TO inventarioGX;
 GRANT SELECT ON administrative.assigned TO inventarioGX;
 GRANT SELECT ON business.product TO inventarioGX;
 GRANT USAGE, CREATE ON SCHEMA storage TO inventarioGX;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA storage TO inventariogx;
 
 --guest permissons
 GRANT SELECT ON administrative.worker TO guestGX;

@@ -45,20 +45,34 @@ $$ LANGUAGE plpgsql;
 *********************** STOCK ***************************
 *********************************************************/
 --insertar en stock
-CREATE OR REPLACE FUNCTION storage.add_product_stock(
-    id_sucursal_param INTEGER,
-    id_product_param INTEGER,
-    hall_param INTEGER,
-    existences_param INTEGER
-) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION storage.update_stock()
+RETURNS TRIGGER AS $$
+DECLARE
+    max_existences INTEGER;
 BEGIN
-    UPDATE storage.stock
-    SET existences = existences + existences_param
-    WHERE id_sucursal = id_sucursal_param AND id_product = id_product_param AND hall = hall_param;
+    SELECT existences INTO max_existences 
+    FROM storage.stock 
+    WHERE id_sucursal = NEW.id_sucursal AND id_product = NEW.id_product;
 
-    IF NOT FOUND THEN --si no se realizo el update
-        INSERT INTO storage.stock(id_sucursal, id_product, hall, existences) 
-        VALUES (id_sucursal_param,id_product_param,hall_param,existences_param);
+    IF max_existences IS NULL THEN
+        RAISE EXCEPTION 'El producto no existe en la sucursal';
+    ELSIF max_existences < NEW.existences THEN
+        RAISE EXCEPTION 'No hay suficientes existencias';
     END IF;
+
+    UPDATE storage.stock
+    SET existences = existences - NEW.existences
+    WHERE id_sucursal = NEW.id_sucursal AND id_product = NEW.id_product;
+
+    IF NOT FOUND THEN 
+        RAISE EXCEPTION 'No se pudo actualizar el stock';
+    END IF;
+
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER transfer_products
+BEFORE UPDATE ON storage.on_sale
+FOR EACH ROW
+EXECUTE FUNCTION storage.update_stock();

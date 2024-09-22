@@ -18,7 +18,6 @@ FOR EACH ROW
 EXECUTE FUNCTION administrative.validate_checkout_in_range();
 
 
-
 --validar el numero de los halls de los productos
 CREATE OR REPLACE FUNCTION storage.validate_hall_in_range()
 RETURNS TRIGGER AS $$
@@ -37,3 +36,33 @@ CREATE OR REPLACE TRIGGER validate_hall
 BEFORE INSERT OR UPDATE ON storage.stock
 FOR EACH ROW
 EXECUTE FUNCTION storage.validate_hall_in_range();
+
+
+--actualizar el stock
+CREATE OR REPLACE FUNCTION storage.update_stock()
+RETURNS TRIGGER AS $$
+DECLARE
+    max_existences INTEGER;
+BEGIN
+    SELECT existences INTO max_existences FROM storage.stock 
+        WHERE id_sucursal = NEW.id_sucursal AND id_product = NEW.id_product;
+
+    IF max_existences < NEW.existences THEN
+        RAISE EXCEPTION 'No hay suficientes existencias';
+    END IF;
+
+    UPDATE storage.stock
+        SET existences = existences - NEW.existences
+        WHERE id_sucursal = NEW.id_sucursal AND id_product = NEW.id_product;
+    IF NOT FOUND THEN 
+        RAISE EXCEPTION 'No se pudo actualizar el stock';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER validate_hall
+BEFORE UPDATE ON storage.stock
+FOR EACH ROW
+EXECUTE FUNCTION storage.update_stock();

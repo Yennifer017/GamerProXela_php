@@ -312,6 +312,19 @@ ERROR && SUCCESS
     transition: all 0.2s ease-in-out;
 }
 
+.gamer-form button[type="button"] {
+    padding: 12px;
+    background-color: #00FF00; /* Fondo verde brillante */
+    color: #000000; /* Texto negro */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: sans-serif; /* Fuente retro */
+    box-shadow: 0px 0px 20px 5px #00FF00; /* Sombra verde brillante */
+    transition: all 0.2s ease-in-out;
+}
+
 .gamer-form button[type="submit"]:hover {
     background-color: #1a008c;
     color: #FFFFFF; /* Texto blanco */
@@ -339,7 +352,6 @@ ERROR && SUCCESS
 .gamer-form p {
     color: #FFFFFF; /* Texto blanco */
     font-size: 14px;
-    text-shadow: 1px 1px #00FF00; /* Sombra verde ligera */
     margin-bottom: 15px;
     font-family: 'Press Start 2P', sans-serif; /* Fuente retro */
 }
