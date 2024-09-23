@@ -27,6 +27,8 @@ GRANT INSERT, UPDATE ON storage.on_sale TO cajeroGX;
 --bodega permissons
 GRANT USAGE ON SCHEMA storage TO bodegagx;
 GRANT USAGE ON SCHEMA administrative TO bodegagx;
+GRANT USAGE ON SCHEMA business TO bodegagx;
+GRANT SELECT ON business.product TO bodegagx;
 GRANT SELECT ON administrative.worker TO bodegagX;
 GRANT SELECT ON administrative.assigned TO bodegagX;
 GRANT SELECT ON administrative.sucursal TO bodegagX;

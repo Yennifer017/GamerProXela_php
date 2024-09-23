@@ -31,4 +31,16 @@ class Stock extends Product{
         $this->existences = $existences;
     }
     
+    public function toJSON(){
+        $simpleProduct = [
+            'id' => $this->id,
+            'name' => $this->name,
+            'price' => $this->price,
+            'discount' => $this->discount,
+            'existences' => $this->existences,
+            'hall' => $this->hall,
+            'sucursal' => $this->idSucursal
+        ];
+        return json_encode($simpleProduct);
+    }
 }

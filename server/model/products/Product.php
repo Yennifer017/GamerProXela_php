@@ -36,5 +36,15 @@ class Product{
         $this->price = $price;
         $this->discount = $discount;
     }
+
+    public function toJSON(){
+        $simpleProduct = [
+            'id' => $this->id,
+            'name' => $this->name,
+            'price' => $this->price,
+            'discount' => $this->discount
+        ];
+        return json_encode($simpleProduct);
+    }
     
 }
