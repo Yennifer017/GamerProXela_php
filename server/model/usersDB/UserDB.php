@@ -25,9 +25,7 @@ class UserDB {
                 $worker->setPassword('Nothing here');
                 return $worker;
             } else {
-                $worker->setPassword($encryptedPassword);
-                return $worker;
-                //return null;
+                return null;
             }
         } catch (PDOException $e) {
             return null;

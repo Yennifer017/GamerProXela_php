@@ -24,7 +24,7 @@ class Stock extends Product{
         $this->existences = $existences;
     }
 
-    public function __construct(int $id, int $idSucursal, int $hall, int $existences){
+    public function __construct(int $id = -1, int $idSucursal = -1, int $hall = -1, int $existences = -1){
         $this->id = $id;
         $this->idSucursal = $idSucursal;
         $this->hall = $hall;

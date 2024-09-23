@@ -5,9 +5,7 @@ const nameDisplay = document.getElementById('name');
 const hallDisplay = document.getElementById('hall');
 const existencesDisplay = document.getElementById('currentExistences');
 const currentIdInput = document.getElementById('currentExistences');
-function updateDisplay(){
-
-}
+const codeDisplay = document.getElementById('code');
 
 button.addEventListener('click', function() {
     var idProduct = document.getElementById('id').value;
@@ -16,20 +14,26 @@ button.addEventListener('click', function() {
     } catch (error) {
     }
     if(Number.isInteger(idProduct) && idProduct >= 0){
-        var url = '../../controllator/ajax/GetExistence.php?id=' + idProduct;
+        var url = '../../controllator/ajax/GetProductExistence.php?id=' + idProduct;
         fetch(url)
             .then(response => {
                 if (!response.ok) {
-                    alert('No se encontro el producto');
+                    return response.json().then(errorData => {
+                        alert(errorData.error)
+                        throw new Error(errorData.error);
+                    });
                 }
-                return response.json(); 
+                return response.json();
             })
             .then(data => {
-                updateDisplay();
-                alert('Respuesta exitosa:', data);
+                //update display
+                codeDisplay.textContent = idProduct;
+                nameDisplay.textContent = data.name;
+                hallDisplay.textContent = data.hall;
+                existencesDisplay.textContent = data.existences;
             })
             .catch(error => {
-                alert(error);
+                //console.log(error);
             });
 
     } else {

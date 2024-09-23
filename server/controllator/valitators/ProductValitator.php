@@ -14,7 +14,7 @@ class ProductValitator {
             && $this->isIntegerPositive($stockProd->getExistences());
     }
 
-    private function isIntegerPositive($number){
+    public function isIntegerPositive($number){
         return is_int($number) && $number > 0;
     }
 

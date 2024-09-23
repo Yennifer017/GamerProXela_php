@@ -38,5 +38,27 @@ class ProductDB {
         }
     }
 
+    public function getProduct(Stock $stockProduct, $conn){
+        if($this->valitator->isIntegerPositive($stockProduct->getId())
+            && $this->valitator->isIntegerPositive($stockProduct->getIdSucursal())
+        ) {
+            $sql = "SELECT * FROM storage.find_stock_product(:id_product, :id_sucursal);";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":id_product", $stockProduct->getId());
+            $stmt->bindValue(":id_sucursal", $stockProduct->getIdSucursal());
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $stockProduct->setName($result["product_name"]);
+                $stockProduct->setHall($result["hall"]);
+                $stockProduct->setExistences($result["existences"]);
+                return $stockProduct;
+            } else {
+                throw new NoDataFoundEx();
+            }
+        } else {
+            throw new InvalidDataEx();
+        }
+    }
 
 }

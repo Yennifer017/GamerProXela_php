@@ -34,6 +34,9 @@ GRANT SELECT, INSERT, UPDATE ON business.product TO bodegaGX;
 GRANT INSERT, SELECT, UPDATE ON storage.stock TO bodegaGX;
 
 --inventary permissons
+GRANT USAGE ON SCHEMA administrative TO inventarioGX;
+GRANT USAGE ON SCHEMA business TO inventarioGX;
+GRANT SELECT ON administrative.sucursal TO inventariogx;
 GRANT SELECT ON administrative.worker TO inventarioGX;
 GRANT SELECT ON administrative.assigned TO inventarioGX;
 GRANT SELECT ON business.product TO inventarioGX;

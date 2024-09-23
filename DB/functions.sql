@@ -44,35 +44,40 @@ $$ LANGUAGE plpgsql;
 /********************************************************
 *********************** STOCK ***************************
 *********************************************************/
---insertar en stock
-CREATE OR REPLACE FUNCTION storage.update_stock()
-RETURNS TRIGGER AS $$
-DECLARE
-    max_existences INTEGER;
+CREATE OR REPLACE FUNCTION storage.transfer_to_inventary(
+    id_sucursal_param INTEGER,
+    id_product_param INTEGER,
+    existences_param INTEGER
+) RETURNS VOID AS $$
 BEGIN
-    SELECT existences INTO max_existences 
-    FROM storage.stock 
-    WHERE id_sucursal = NEW.id_sucursal AND id_product = NEW.id_product;
-
-    IF max_existences IS NULL THEN
-        RAISE EXCEPTION 'El producto no existe en la sucursal';
-    ELSIF max_existences < NEW.existences THEN
-        RAISE EXCEPTION 'No hay suficientes existencias';
-    END IF;
-
-    UPDATE storage.stock
-    SET existences = existences - NEW.existences
-    WHERE id_sucursal = NEW.id_sucursal AND id_product = NEW.id_product;
+    UPDATE storage.on_sale
+    SET existences = existences_param
+    WHERE id_sucursal = id_sucursal_param AND id_product = id_product_param;
 
     IF NOT FOUND THEN 
-        RAISE EXCEPTION 'No se pudo actualizar el stock';
+        INSERT INTO storage.on_sale(id_sucursal, id_product, existences) 
+        VALUES (id_sucursal_param, id_product_param, existences_param);
     END IF;
-
-    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE TRIGGER transfer_products
-BEFORE UPDATE ON storage.on_sale
-FOR EACH ROW
-EXECUTE FUNCTION storage.update_stock();
+
+--busqueda de productos en stock
+CREATE OR REPLACE FUNCTION storage.find_stock_product(
+    id_product_param INTEGER,
+    id_sucursal_param INTEGER
+) 
+RETURNS TABLE(
+    product_name VARCHAR(70),
+    hall INTEGER,
+    existences INTEGER
+) AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT business.product.name, storage.stock.hall, storage.stock.existences
+    FROM storage.stock
+    JOIN business.product ON business.product.id = storage.stock.id_product
+    WHERE storage.stock.id_product = id_product_param
+    AND storage.stock.id_sucursal = id_sucursal_param;
+END;
+$$ LANGUAGE plpgsql;

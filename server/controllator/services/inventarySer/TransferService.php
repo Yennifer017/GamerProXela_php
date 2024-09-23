@@ -32,15 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol(
         $productDB->transferToInventary($stockProduct, InventaryConnDB::getInstance()->getConnection());
         header("Location: $returnPath?e=200");
     } catch (InvalidDataEx $e) {
-        echo $e->getMessage();
-        //header("Location: $returnPath?e=400");
+        header("Location: $returnPath?e=400");
     } catch (PDOException $e) {
-        echo $e->getMessage();
-        //header("Location: $returnPath?e=416");
+        header("Location: $returnPath?e=416");
     } catch (Exception $e) {
-        //header("Location: $returnPath?e=500");
+        header("Location: $returnPath?e=500");
     }
-    //exit();
+    exit();
 } else {
     echo "Error";
 }

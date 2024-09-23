@@ -10,8 +10,7 @@ if (isset($_GET['e'])) {
             break;
         case 416:
             echo '<div class="error-message"><p>
-                    Codigo de producto o pasillo incorrecto (debe ser el mismo que ya esta registrado), 
-                    <br> intentalo de nuevo.
+                    Codigo de producto invalido o existencias insuficientes para transportar, intentalo de nuevo.
                 </p></div>';
             break;
         case 500:
@@ -24,11 +23,12 @@ if (isset($_GET['e'])) {
 <div class="gamer-form div-centrado">
     <form action="../../controllator/services/inventarySer/TransferService.php" method="POST">
 
-        <label for="searchId">Codigo del producto: </label>
+        <label for="id">Codigo del producto: </label>
         <input type="number" name="id" id="id">
         <button type="button" id="searchBtn">Buscar</button>
         <hr>
         <div>
+            <p>Codigo: <span id="code"></span> </p>
             <p>Nombre: <span id="name"></span> </p>
             <p>Pasillo: <span id="hall"></span> <br></p>
             <p>Existencias: <span id="currentExistences"></span></p>
