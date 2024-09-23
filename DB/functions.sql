@@ -81,3 +81,39 @@ BEGIN
     AND storage.stock.id_sucursal = id_sucursal_param;
 END;
 $$ LANGUAGE plpgsql;
+
+
+/********************************************************
+*********************** CLIENTS *************************
+*********************************************************/
+
+--obtener todas las modificaciones de clientes pendientes 
+CREATE OR REPLACE FUNCTION users.get_pending_modifications_users(
+) 
+RETURNS TABLE(
+    id INTEGER,
+    id_client INTEGER,
+    new_firstname VARCHAR(25),
+    new_lastname VARCHAR(25),
+    new_email VARCHAR(60),
+    old_firstname VARCHAR(25),
+    old_lastname VARCHAR(25),
+    old_email VARCHAR(60)
+) AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        users.modification.id AS id, 
+        users.modification.id_cliente AS id_client, 
+        users.modification.firstname AS new_firstname, 
+        users.modification.lastname AS new_lastname,
+        users.modification.email AS new_email,
+
+        users.client.firstname AS old_firstname,
+        users.client.lastname AS old_lastname,
+        users.client.email AS old_email
+    FROM users.modification
+    JOIN users.client ON users.client.id = users.modification.id_cliente
+    WHERE users.modification.status = 'pendiente';
+END;
+$$ LANGUAGE plpgsql;

@@ -16,3 +16,4 @@ INSERT INTO administrative.sucursal(id, name, total_checkouts, total_halls) VALU
 	(3, 'Centro2', 15, 15)
 ;
 
+INSERT INTO administrative.params(id, name, value) VALUES (1, '+PtsEvery', 200.00);

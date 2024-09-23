@@ -127,3 +127,12 @@ CREATE TABLE storage.on_sale(
 	FOREIGN KEY (id_sucursal) REFERENCES administrative.sucursal(id)
 );
 
+CREATE TABLE users.card_upgrade(
+	id INTEGER PRIMARY KEY,
+	id_cajero INTEGER NOT NULL,
+	id_client INTEGER NOT NULL,
+	status users.mod_status NOT NULL,
+	FOREIGN KEY (id_client) REFERENCES users.client(id),
+	FOREIGN KEY (id_cajero) REFERENCES administrative.cajero(id_worker)
+);
+
