@@ -17,9 +17,9 @@ function addProduct(data){
             <div class="product-info">
                 <input type="hidden" name="id[]" value="${data.id}">
                 <h3>Nombre: ${data.name}</h3>
-                <p>Precio Q. ${data.price}</p>
-                <p>Descuento Q. ${data.discount}</p>
-                <p>Existencias ${data.existences}</p>
+                <p>Precio: <span name="price[]">${data.price}</span></p>
+                <p>Descuento: <span name="discount[]">${data.discount}</span></p>
+                <p>Existencias <span>${data.existences}</span></p>
                 <label for="quantity">Cantidad: </label>
                 <input type="number" name="quantity[]">
             </div>

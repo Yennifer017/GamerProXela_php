@@ -8,6 +8,8 @@ include("../../../model/salesDB/SalesDB.php");
 include("../../../model/usersDB/ClientDB.php");
 include("../../valitators/ClientValitator.php");
 include("../../General/Session.php");
+include("../../exceptions/InvalidDataEx.php");
+include("../../exceptions/NoDataFoundEx.php");
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -18,30 +20,32 @@ $worker = $session->get_session_data();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol() == Worker::SALESPERSON_ROL) {
     if (isset($_POST['id']) && isset($_POST['quantity'])) {
+        $returnPath = '../../../view/salespersons/dashboard.php';
+        
         $nit = $_POST['nit'];
         $ids = $_POST['id']; // Array de IDs
         $quantities = $_POST['quantity']; // Array de cantidades
         try {
             $salesDB = new SalesDB();
-            $salesDB->createSale(
+            $factura = $salesDB->createSale(
                 $ids, 
                 $quantities, 
                 $nit, $worker, 
                 SalespersonConnDB::getInstance()->getConnection()
             );
             echo "exito";
-            //header('Location: ../../../view/salespersons/clientsOptions.php?e=200m');
-            //exit();
+            header("Location: $returnPath?e=200&n=$factura");
+            exit();
         } catch (InvalidDataEx $e) {
-            //header('Location: ../../../view/salespersons/clientsOptions.php?e=400m');
-            //exit();
-        } catch (NoChangeEx $e) {
-            //header('Location: ../../../view/salespersons/clientsOptions.php?e=400m');
-            //exit();
+            header("Location: $returnPath?e=400");
+            exit();
+        } catch (NoDataFoundEx $e) {
+            header("Location: $returnPath?e=417");
+            exit();
         } catch (PDOException $e) {
             echo $e->getMessage();
-            //header('Location: ../../../view/salespersons/clientsOptions.php?e=503m');
-            //exit();
+            header("Location: $returnPath?e=400");
+            exit();
         }
     } else {
         echo "No se han recibido productos.";

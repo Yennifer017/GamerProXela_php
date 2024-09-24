@@ -87,7 +87,7 @@ CREATE TABLE business.sale(
 	id_client INTEGER,
 	id_sucursal INTEGER NOT NULL,
 	id_cajero INTEGER NOT NULL,
-	date DATE NOT NULL,
+	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (id_client) REFERENCES users.client(id),
 	FOREIGN KEY (id_sucursal) REFERENCES administrative.sucursal(id),
 	FOREIGN KEY (id_cajero) REFERENCES administrative.cajero(id_worker)

@@ -230,7 +230,7 @@ CREATE OR REPLACE FUNCTION business.save_sale(
     quantities INTEGER[]
 ) 
 RETURNS TABLE(
-    id_sale INTEGER
+    new_sale_id INTEGER
 ) AS $$
 DECLARE
     i INTEGER := 1;
@@ -241,8 +241,8 @@ DECLARE
     current_id_product INTEGER;
 BEGIN
     --agregar la venta
-    INSERT INTO business.sale(id_client, id_sucursal, id_cajero, date) 
-    VALUES (id_client_param, id_sucursal_param, id_cajero_param, CURRENT_DATE)
+    INSERT INTO business.sale(id_client, id_sucursal, id_cajero) 
+    VALUES (id_client_param, id_sucursal_param, id_cajero_param)
     RETURNING business.sale.number INTO new_sale_id;
     --para cada producto agregar en detalles
     FOREACH current_id_product IN ARRAY ids_products

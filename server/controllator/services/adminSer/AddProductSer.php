@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include("../../../model/products/Product.php");
 include("../../../model/users/Worker.php");
 include("../../../model/users/Salesperson.php");
@@ -30,12 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol(
     } catch (InvalidDataEx $e) {
         header("Location: $returnPath?e=400");
     } catch (PDOException $e) {
-        echo $e->getMessage();
-        //header("Location: $returnPath?e=503");
+        header("Location: $returnPath?e=503");
     } catch (Exception $e) {
         header("Location: $returnPath?e=500");
     }
-    //exit();
+    exit();
 } else {
     echo "Error";
 }
