@@ -1,0 +1,30 @@
+.product-card {
+    background-color: #1d1d1d;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+/* Información del producto */
+.product-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.product-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #d7d7e8;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.product-info p {
+    font-size: 0.9rem;
+    color: #b3a0a0;
+    margin: 10px 0;
+}

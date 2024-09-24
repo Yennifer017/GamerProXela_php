@@ -18,11 +18,12 @@ GRANT USAGE ON SCHEMA users TO cajeroGX;
 GRANT SELECT, INSERT, TRIGGER ON ALL TABLES IN SCHEMA users TO cajerogx;
 GRANT USAGE, SELECT, UPDATE ON SEQUENCE users.modification_id_seq TO cajerogx;
 
-
 GRANT UPDATE ON users.card TO cajeroGX;
 GRANT INSERT ON users.modification TO cajeroGX;
 GRANT USAGE, CREATE ON SCHEMA business TO cajeroGX;
-GRANT INSERT, UPDATE ON storage.on_sale TO cajeroGX;
+GRANT SELECT ON business.product TO cajerogx;
+GRANT USAGE, CREATE ON SCHEMA storage TO cajerogx;
+GRANT ALL PRIVILEGES ON storage.on_sale TO cajerogx;
 
 --bodega permissons
 GRANT USAGE ON SCHEMA storage TO bodegagx;

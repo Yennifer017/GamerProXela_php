@@ -331,6 +331,12 @@ ERROR && SUCCESS
     box-shadow: 0px 0px 20px 5px #0dffdf; /* Sombra roja brillante */
 }
 
+.gamer-form button[type="button"]:hover {
+    background-color: #1a008c;
+    color: #FFFFFF; /* Texto blanco */
+    box-shadow: 0px 0px 20px 5px #0dffdf; /* Sombra roja brillante */
+}
+
 .gamer-form .login-link {
     text-align: center;
     margin-top: 15px;

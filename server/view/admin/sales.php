@@ -8,28 +8,13 @@
         <hr>
         <h2>Productos</h2>
         <div id="products">
-            <!-- 
-            <div class="product-card">
-                <div class="product-info">
-                    <input type="hidden" name="id" id="id" value="10">
-                    <h3>Nombre: lejad</h3>
-                    <p>Precio Q.vfeafeas</p>
-                    <p>Descuento Q. </p>
-                    <p>Existencias </p>
-                    <label for="quantity">Cantidad: </label>
-                    <input type="number" name="quantity" id="quantity">
-                </div>
-            </div>
-            -->
+
         </div>
-        <br>
         <button type="button" id="addProductBtn">Agregar producto</button>
         <hr>
         <h2>Descuentos</h2>
         <button type="button" id="addCardDiscountBtn">Agregar descuento con tarjeta</button>
         <br><hr><br>
         <button type="submit">Confirmar Venta</button>
-        <script></script>
     </form>
-    <script src="../../assets/js/AddProduct.js"></script>
 </div>

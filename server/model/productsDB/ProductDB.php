@@ -61,4 +61,29 @@ class ProductDB {
         }
     }
 
+    public function getOnSaleProduct(OnSale $product, $conn ){
+        if($this->valitator->isIntegerPositive($product->getId())
+        && $this->valitator->isIntegerPositive($product->getIdSucursal())
+        ){
+            $sql = "SELECT * FROM storage.find_on_sale_product(:id_product, :id_sucursal);";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":id_product", $product->getId());
+            $stmt->bindValue(":id_sucursal", $product->getIdSucursal());
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $product->setName($result["name"]);
+                $product->setPrice($result["price"]);
+                $product->setExistences($result["existences"]);
+                $discount = $result["discount"] ?? 0;
+                $product->setDiscount($discount);
+                return $product;
+            } else {
+                throw new NoDataFoundEx();
+            }
+        } else {
+            throw new InvalidDataEx();
+        }
+    }
+
 }

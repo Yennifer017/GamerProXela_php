@@ -117,3 +117,39 @@ BEGIN
     WHERE users.modification.status = 'pendiente';
 END;
 $$ LANGUAGE plpgsql;
+
+
+/********************************************************
+*********************** PRODUCTS *************************
+*********************************************************/
+--buscar un producto a la venta
+CREATE OR REPLACE FUNCTION storage.find_on_sale_product(
+    id_product_param INTEGER,
+    id_sucursal_param INTEGER
+) 
+RETURNS TABLE(
+    name VARCHAR(70),
+    price MONEY,
+    existences INTEGER, 
+    discount FLOAT
+) AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        business.product.name AS name,
+        business.product.price AS price,
+        storage.on_sale.existences AS existences,
+        (
+            SELECT administrative.discount.percentaje
+            FROM administrative.discount
+            WHERE administrative.discount.id_product = business.product.id
+            AND administrative.discount.date_end >= CURRENT_DATE
+            ORDER BY administrative.discount.date_end ASC
+            LIMIT 1
+        ) AS discount
+    FROM storage.on_sale
+    JOIN business.product ON storage.on_sale.id_product = business.product.id
+    WHERE storage.on_sale.id_sucursal = id_sucursal_param 
+        AND storage.on_sale.id_product = id_product_param;
+END;
+$$ LANGUAGE plpgsql;

@@ -30,7 +30,7 @@ class Product{
         $this->discount = $discount;
     }
     
-    public function __construct($id = -1, string $name =  null, $price = 0, $discount = 0) {
+    public function __construct($id = -1, string $name = '', $price = 0, $discount = 0) {
         $this->id = $id;
         $this->name = $name;
         $this->price = $price;
