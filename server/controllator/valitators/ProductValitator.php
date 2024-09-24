@@ -18,4 +18,9 @@ class ProductValitator {
         return is_int($number) && $number > 0;
     }
 
+    public function isValidToInsert(Product $product){
+        return $product->getName() != ''
+            && $product->getPrice() >= 0;
+    }
+
 }

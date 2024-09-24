@@ -86,4 +86,19 @@ class ProductDB {
         }
     }
 
+    public function createNew(Product $product, $conn){
+        if($this->valitator->isValidToInsert($product)){
+            $sql = "INSERT INTO business.product(name, price) 
+                VALUES (:name_product , :price );";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":name_product", $product->getName());
+            $stmt->bindValue(":price", $product->getPrice());
+            if (!$stmt->execute()) {
+                throw new InvalidDataEx("Datos invalidos");
+            }
+        } else {
+            throw new InvalidDataEx();
+        }
+    }
+
 }

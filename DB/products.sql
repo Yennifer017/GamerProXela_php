@@ -248,3 +248,5 @@ INSERT INTO business.product(id, name, price) VALUES (247,'Scraper',520.75);
 INSERT INTO business.product(id, name, price) VALUES (248,'Mahjong Mojo 3D',540.1);
 INSERT INTO business.product(id, name, price) VALUES (249,'Looped Fellas',502.52);
 INSERT INTO business.product(id, name, price) VALUES (250,'Into the Dungeon',350.0);
+
+ALTER SEQUENCE business.product_id_seq RESTART WITH 251;

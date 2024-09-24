@@ -203,6 +203,8 @@ BEGIN
 
     IF max_existences IS NULL THEN
         RAISE EXCEPTION 'El producto no existe en la sucursal';
+    ELSIF quantity < 0 THEN
+        RAISE EXCEPTION 'Las existencias no deben ser negativas';    
     ELSIF max_existences < quantity THEN
         RAISE EXCEPTION 'No hay suficientes existencias';
     END IF;
