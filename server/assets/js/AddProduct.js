@@ -32,22 +32,24 @@ addBtn.addEventListener('click', function() {
     try {
         var idProduct = getIdProduct();
         idProduct = parseInt(idProduct, 10)
-        var url = '../../controllator/ajax/GetOnSaleProd.php?id=' + idProduct;
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        alert(errorData.error)
-                        throw new Error(errorData.error);
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                addProduct(data);
-            })
-            .catch(error => {
-                //console.log(error);
-            });
+        if(idProduct>=0){
+            var url = '../../controllator/ajax/GetOnSaleProd.php?id=' + idProduct;
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorData => {
+                            alert(errorData.error)
+                            throw new Error(errorData.error);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    addProduct(data);
+                })
+                .catch(error => {
+                    //console.log(error);
+                });
+        }
     } catch (error) {}
 });

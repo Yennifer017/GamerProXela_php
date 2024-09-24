@@ -83,8 +83,8 @@ CREATE TABLE users.card(
 	FOREIGN KEY (id_category) REFERENCES administrative.card_category(id)
 );
 CREATE TABLE business.sale(
-	number INTEGER PRIMARY KEY,
-	id_client INTEGER NOT NULL,
+	number SERIAL PRIMARY KEY,
+	id_client INTEGER,
 	id_sucursal INTEGER NOT NULL,
 	id_cajero INTEGER NOT NULL,
 	date DATE NOT NULL,

@@ -21,6 +21,8 @@ GRANT USAGE, SELECT, UPDATE ON SEQUENCE users.modification_id_seq TO cajerogx;
 GRANT UPDATE ON users.card TO cajeroGX;
 GRANT INSERT ON users.modification TO cajeroGX;
 GRANT USAGE, CREATE ON SCHEMA business TO cajeroGX;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA business TO cajerogx;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA business TO cajerogx;
 GRANT SELECT ON business.product TO cajerogx;
 GRANT USAGE, CREATE ON SCHEMA storage TO cajerogx;
 GRANT ALL PRIVILEGES ON storage.on_sale TO cajerogx;

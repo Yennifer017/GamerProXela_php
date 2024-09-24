@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol(
         header('Location: ../../../view/salespersons/clientsOptions.php?e=400m');
         exit();
     } catch (PDOException $e) {
-        echo $e->getMessage();
-        /*header('Location: ../../../view/salespersons/clientsOptions.php?e=503m');
-        exit();*/
+        //echo $e->getMessage();
+        header('Location: ../../../view/salespersons/clientsOptions.php?e=503m');
+        exit();
     }
 } else {
     echo "Error";
