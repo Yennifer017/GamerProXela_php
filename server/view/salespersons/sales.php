@@ -19,6 +19,11 @@ if (isset($_GET['e'])) {
                 el administrador de TI, pues la factura se pudo haber registrado.
                 </p></div>';
             break;
+        case 406:
+            echo '<div class="error-message"><p>
+                No se especificaron productos, no se realizo la venta.
+                </p></div>';
+            break;
     }
 }
 ?>

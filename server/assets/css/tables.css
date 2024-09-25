@@ -1,0 +1,71 @@
+
+table.gamer-table {
+    width: 90%;
+    border-collapse: collapse;
+    background-color: #1a1a1a; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
+    font-family: 'Orbitron', sans-serif; /* Fuente estilo gamer */
+    text-align: center;
+    margin: 2rem auto; /* Centro horizontalmente */
+    border: 3px solid #00ff00; /* Borde verde estilo gamer */
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.7); /* Sombra de borde verde brillante */
+}
+
+table.gamer-table thead {
+    background-color: #000000; /* Fondo más oscuro para el encabezado */
+}
+
+table.gamer-table th, table.gamer-table td {
+    padding: 15px;
+    border: 1px solid #444; /* Bordes oscuros */
+}
+
+table.gamer-table th {
+    color: #00f7ff;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+table.gamer-table tr:nth-child(even) {
+    background-color: #2a2a2a; /* Alternar filas con otro tono oscuro */
+}
+
+table.gamer-table tr:hover {
+    background-color: #333; /* Efecto hover sobre filas */
+    transform: scale(1.01); /* Ligero zoom al hacer hover */
+}
+
+table.gamer-table td {
+    color: #d4d4d4; /* Color de texto suave para las celdas */
+    font-size: 13px;
+}
+
+table.gamer-table caption {
+    caption-side: bottom;
+    color: #e6b800; /* Título dorado */
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Efectos para bordes y sombras */
+table.gamer-table th, table.gamer-table td {
+    box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.3); /* Sutil resplandor cian */
+}
+
+/* Botones de acción en la tabla */
+table.gamer-table .action-btn {
+    background-color: #e60000; /* Botón rojo intenso */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+table.gamer-table .action-btn:hover {
+    background-color: #ff1a1a; /* Botón más claro al hacer hover */
+}

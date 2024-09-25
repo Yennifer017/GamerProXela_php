@@ -10,6 +10,10 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA administrative TO admingx;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA users TO admingx;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA business TO admingx;
 
+GRANT SELECT ON administrative.top_products TO admingx;
+GRANT SELECT ON administrative.top_clients TO admingx;
+GRANT SELECT ON administrative.top_sucursales TO admingx;
+
 
 --cajero permissons
 GRANT USAGE, CREATE ON SCHEMA administrative TO cajeroGX;

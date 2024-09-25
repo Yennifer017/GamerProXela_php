@@ -1,11 +1,11 @@
 <?php
 class Client{
 
-    private int $id;
-    private int $nit;
-    private string $name;
-    private string $lastname;
-    private string $email;
+    protected int $id;
+    protected int $nit;
+    protected string $name;
+    protected string $lastname;
+    protected string $email;
 
     public function getId(): int{
         return $this->id;

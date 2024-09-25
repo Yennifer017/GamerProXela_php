@@ -17,10 +17,9 @@ ini_set('display_startup_errors', 1);
 
 $session = new Session();
 $worker = $session->get_session_data();
-
+$returnPath = '../../../view/salespersons/dashboard.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol() == Worker::SALESPERSON_ROL) {
     if (isset($_POST['id']) && isset($_POST['quantity'])) {
-        $returnPath = '../../../view/salespersons/dashboard.php';
         
         $nit = $_POST['nit'];
         $ids = $_POST['id']; // Array de IDs
@@ -48,9 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol(
             exit();
         }
     } else {
-        echo "No se han recibido productos.";
+        header("Location: $returnPath?e=406");
+        exit();
     }
 } else {
     echo "Error";
+    header("Location: $returnPath?e=500");
+    exit();
 }
 ?>
