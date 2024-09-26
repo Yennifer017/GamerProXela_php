@@ -186,6 +186,33 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+--buscar todos los productos con una coincidencia
+CREATE OR REPLACE FUNCTION business.find_product(
+    coincidence TEXT
+) 
+RETURNS TABLE(
+    id INTEGER,
+    name VARCHAR(70),
+    price MONEY,
+    existences INTEGER,
+    sucursal INTEGER
+) AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        business.product.id AS id,
+        business.product.name AS name,
+        business.product.price AS price, 
+        storage.on_sale.existences AS existences, 
+        storage.on_sale.id_sucursal AS sucursal
+    FROM storage.on_sale
+    JOIN business.product ON storage.on_sale.id_product = business.product.id
+    WHERE business.product.name ILIKE '%' || coincidence || '%';
+END;
+$$ LANGUAGE plpgsql;
+
+
+
 /********************************************************
 ************************** SALES *************************
 *********************************************************/
@@ -285,3 +312,76 @@ BEGIN
     RETURN QUERY SELECT new_sale_id;
 END;
 $$ LANGUAGE plpgsql;
+
+-------------------------mostrar factura--------------------------
+--datos generales
+CREATE OR REPLACE FUNCTION business.get_general_factura(
+    id_factura INTEGER
+) 
+RETURNS TABLE(
+    numero_factura INTEGER,
+    client_name VARCHAR(25),
+    client_lastname VARCHAR(25),
+    cajero_username VARCHAR(16),
+    subtotal MONEY,
+    total MONEY
+) AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT
+        business.sale.number AS numero_factura,
+        users.client.firstname AS client_name,
+        users.client.lastname AS client_lastname,
+        administrative.worker.username AS cajero_username,
+        SUM(business.sold_product.current_price * business.sold_product.quantity) AS subtotal,
+        SUM(business.sold_product.price_with_discount * business.sold_product.quantity) AS total
+    FROM business.sold_product
+    JOIN business.sale ON business.sold_product.id_sale = business.sale.number
+    LEFT JOIN users.client ON business.sale.id_client = users.client.id
+    JOIN administrative.worker ON business.sale.id_cajero = administrative.worker.id
+    WHERE business.sold_product.id_sale = id_factura
+    GROUP BY 
+        business.sold_product.id_sale, 
+        business.sale.number,
+        users.client.firstname, 
+        users.client.lastname,
+        administrative.worker.username;
+END;
+$$ LANGUAGE plpgsql;
+
+
+--datos extendidos de factura
+CREATE OR REPLACE FUNCTION business.get_details_factura(
+    id_factura INTEGER
+) 
+RETURNS TABLE(
+    id_product INTEGER,
+    product_name VARCHAR(70),
+    current_price MONEY,
+    price_with_discount MONEY,
+    quantity INTEGER,
+    total_without_discount MONEY,
+    total_with_discount MONEY
+) AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        business.sold_product.id_product AS id_product,
+        business.product.name AS product_name,
+        business.sold_product.current_price AS current_price,
+        business.sold_product.price_with_discount AS price_with_discount,
+        business.sold_product.quantity AS quantity,
+        (business.sold_product.quantity * business.sold_product.current_price) AS total_without_discount,
+        (business.sold_product.quantity * business.sold_product.price_with_discount) AS total_with_discount
+    FROM business.sold_product
+    JOIN business.sale ON business.sold_product.id_sale = business.sale.number
+    JOIN business.product ON business.sold_product.id_product = business.product.id
+    WHERE business.sold_product.id_sale = id_factura;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+
+

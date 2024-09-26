@@ -5,6 +5,9 @@ include("../../../model/users/Salesperson.php");
 include("../../../model/DB/SalespersonConnDB.php");
 include("../../../model/DB/CredentialsDB.php");
 include("../../../model/salesDB/SalesDB.php");
+include("../../../model/sales/Sale.php");
+include("../../../model/products/Product.php");
+include("../../../model/products/Sold.php");
 include("../../../model/usersDB/ClientDB.php");
 include("../../valitators/ClientValitator.php");
 include("../../General/Session.php");
@@ -12,7 +15,7 @@ include("../../exceptions/InvalidDataEx.php");
 include("../../exceptions/NoDataFoundEx.php");
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', value: 1);
 ini_set('display_startup_errors', 1);
 
 $session = new Session();
@@ -33,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol(
                 SalespersonConnDB::getInstance()->getConnection()
             );
             echo "exito";
-            header("Location: $returnPath?e=200&n=$factura");
+            header("Location: ../../../view/salespersons/viewFactura.php?id=$factura");
             exit();
         } catch (InvalidDataEx $e) {
             header("Location: $returnPath?e=400");

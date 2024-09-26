@@ -2,7 +2,10 @@
 class Sold extends Product{
     private int $idSale;
     private int $quantity;
-    private int $priceWithDisc;
+    private $priceWithDisc;
+
+    private $totalWithoutDiscount;
+    private $totalWithDiscount;
 
     public function getIdSale(){
         return $this->idSale;
@@ -12,14 +15,25 @@ class Sold extends Product{
         return $this->quantity;
     }
 
-    public function getPriceWithDisc(): int{
+    public function getPriceWithDisc(){
         return $this->priceWithDisc; 
     }
-
-
-    public function __construct(string $name, $price = 0, int $priceWithDisc = 0, 
+    public function getTotalWithoutDiscount(){
+        return $this->totalWithoutDiscount;
+    }
+    public function getTotalWithDiscount(){
+        return $this->totalWithDiscount;
+    }
+    public function setTotalWithoutDiscount($totalWithoutDiscount){
+        $this->totalWithoutDiscount = $totalWithoutDiscount;
+    }
+    public function setTotalWithDiscount($totalWithDiscount){
+        $this->totalWithDiscount = $totalWithDiscount;
+    }
+    
+    public function __construct(string $name, $price = 0, $priceWithDisc = 0, 
         int $quantity, int $id = -1, int $idSale = -1){
-        parent::__construct($name, $price, $idSale);
+        parent::__construct($id, $name, $price);
         $this->idSale = $idSale;
         $this->quantity = $quantity;
         $this->priceWithDisc = $priceWithDisc;

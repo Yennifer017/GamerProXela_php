@@ -23,7 +23,9 @@ calculateBtn.addEventListener('click', function(){
 
         totalArt += currentQuantity;
         subtotal += currentQuantity * currentPrice;
+        subtotal = parseFloat(subtotal.toFixed(2));
         disc += (currentPrice - currentPrice * currentDisc) * currentQuantity;
+        disc = parseFloat(disc.toFixed(2));
     }
 
     console.log(totalArt);
