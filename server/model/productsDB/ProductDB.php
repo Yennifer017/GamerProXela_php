@@ -101,4 +101,24 @@ class ProductDB {
         }
     }
 
+    public function searchProduct($name, $conn){
+        $sql = "SELECT * FROM business.find_product(:name_param)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(":name_param",$name);
+        $stmt->execute();
+        $products =[];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $currentProduct = new OnSale(
+                $row['id'], 
+                $row['name'], 
+                $row['price'], 
+                0, 
+                $row['existences']
+            );
+            $currentProduct->setIdSucursal((int) $row['sucursal']);
+            $products[] = $currentProduct->toSimpleData();
+        }
+        return $products;
+    }
+
 }

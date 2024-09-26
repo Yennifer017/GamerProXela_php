@@ -37,6 +37,18 @@ class OnSale extends Product{
         ];
         return json_encode($simpleProduct);
     }
+
+    public function toSimpleData(){
+        $simpleProduct = [
+            'id' => $this->id,
+            'name' => $this->name,
+            'price' => $this->price,
+            'discount' => $this->discount,
+            'idSucursal' => $this->idSucursal,
+            'existences'=> $this->existences
+        ];
+        return $simpleProduct;
+    }
     
     
 }

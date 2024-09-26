@@ -7,6 +7,7 @@
             <li><a href="./workersView.php">Empleados</a></li>
             <li><a href="./clientsSolView.php">Clientes</a></li>
             <li><a href="./createProduct.php">Productos</a></li>
+            <li><a href="./addDiscount.php">Descuentos</a></li>
             <li><a href="../../controllator/services/LogoutService.php">Logout</a></li>
         </ul>
     </nav>
