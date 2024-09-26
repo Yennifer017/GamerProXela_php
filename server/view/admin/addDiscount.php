@@ -41,7 +41,7 @@ include('../../model/DB/CredentialsDB.php');
                 break;
             case 503:
                 echo '<div class="error-message"><p>
-                        Error desde la base de datos, intentalo de nuevo
+                        El descuento ya existe / error de la base de datos
                     </p></div>';
                 break;
             case 500:

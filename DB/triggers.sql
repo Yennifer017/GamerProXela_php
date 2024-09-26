@@ -36,3 +36,27 @@ CREATE OR REPLACE TRIGGER validate_hall
 BEFORE INSERT OR UPDATE ON storage.stock
 FOR EACH ROW
 EXECUTE FUNCTION storage.validate_hall_in_range();
+
+
+--validar que no exista un descuento antes
+CREATE OR REPLACE FUNCTION administrative.validate_non_exist_discount()
+RETURNS TRIGGER AS $$
+DECLARE
+    max_value INTEGER;
+BEGIN
+    PERFORM 1 --consulta sin guardar nada
+    FROM administrative.discount
+    WHERE administrative.discount.id_product = NEW.id_product
+    AND administrative.discount.date_end >= CURRENT_DATE;
+    IF FOUND THEN
+        RAISE EXCEPTION 'Ya hay un descuento activo para este producto.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER validate_discount
+BEFORE INSERT ON administrative.discount
+FOR EACH ROW
+EXECUTE FUNCTION administrative.validate_non_exist_discount();
