@@ -46,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $worker != null && $worker->getRol(
             exit();
         } catch (PDOException $e) {
             echo $e->getMessage();
-            header("Location: $returnPath?e=400");
-            exit();
+            //header("Location: $returnPath?e=400");
+            //exit();
         }
     } else {
         header("Location: $returnPath?e=406");

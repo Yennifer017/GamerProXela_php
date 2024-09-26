@@ -288,7 +288,7 @@ BEGIN
         LIMIT 1;
         
         IF current_discount_var IS NOT NULL THEN
-            current_price_with_discount = price - price * current_discount_var;
+            current_price_with_discount = current_price_var - current_price_var * current_discount_var;
         END IF;
 
         PERFORM business.update_on_sale_products(id_sucursal_param, current_id_product, quantities[i]);

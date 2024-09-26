@@ -45,6 +45,7 @@ addBtn.addEventListener('click', function() {
                     return response.json();
                 })
                 .then(data => {
+                    console.log(data);
                     addProduct(data);
                 })
                 .catch(error => {

@@ -52,8 +52,8 @@ CREATE TABLE business.product(
 CREATE TABLE administrative.discount(
 	id SERIAL PRIMARY KEY,
 	id_product INTEGER NOT NULL,
-	percentaje FLOAT NOT NULL,
-	data_init DATE NOT NULL,
+	percentaje FLOAT NOT NULL CHECK (percentaje >= 0 AND percentaje <= 1),
+	date_init DATE NOT NULL,
 	date_end DATE,
 	FOREIGN KEY (id_product) REFERENCES business.product(id)
 );

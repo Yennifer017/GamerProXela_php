@@ -26,7 +26,7 @@ class Product{
     public function setPrice($price){
         $this->price = $price;
     }
-    public function setDiscount(int $discount){
+    public function setDiscount($discount){
         $this->discount = $discount;
     }
     
